@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coast & Coffee - Kaffe & Bakery</title>
+    <style>
+        :root {
+            --primary: #5D4037;
+            --secondary: #8D6E63;
+            --accent: #A1887F;
+            --light: #F5F1EB;
+            --cream: #FFF3E0;
+            --dark: #3E2723;
+            --text: #424242;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: Georgia, serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 243, 224, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(93, 64, 55, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--secondary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .language-toggle {
+            background: white;
+            border: 1px solid var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .language-toggle:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 600px;
+            background: linear-gradient(rgba(45, 36, 30, 0.6), rgba(45, 36, 30, 0.4)),
+                        url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .hero-title span {
+            display: block;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2.5rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(93, 64, 55, 0.3);
+        }
+
+        /* Section styling */
+        section { padding: 6rem 0; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            color: var(--secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Menu Grid */
+        .menu-section {
+            background: var(--light);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(93, 64, 55, 0.15);
+        }
+
+        .menu-card-image {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .menu-card:hover .menu-card-image img {
+            transform: scale(1.08);
+        }
+
+        .menu-card-content {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .menu-card-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .menu-card-desc {
+            color: #666;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-card-price {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            font-weight: 400;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, var(--light) 0%, var(--cream) 100%);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(93, 64, 55, 0.15);
+        }
+
+        .about-text {
+            padding: 2rem;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .about-text p {
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .feature-list {
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: white;
+        }
+
+        .booking-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .booking-card {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 3rem 4rem;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(141, 110, 99, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.3);
+        }
+
+        /* Hours Section */
+        .hours-section {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+
+        .hours-section .section-title,
+        .hours-section .section-subtitle {
+            color: white;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hours-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .hours-card:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .hours-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hours-text {
+            color: #ccc;
+            font-family: 'Inter', sans-serif;
+            line-height: 2;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: var(--cream);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.08);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            text-align: right;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d241e;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            text-align: center;
+            padding-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            color: #888;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-title span { font-size: 1.8rem; }
+            .section-title { font-size: 2rem; }
+            .booking-card { padding: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo">Coast & Coffee</a>
+            <ul class="nav-links">
+                <li><a href="#menu"><span class="lang-sv">Menyer</span><span class="lang-en hidden">Menu</span></a></li>
+                <li><a href="#about"><span class="lang-sv">Om Oss</span><span class="lang-en hidden">About</span></a></li>
+                <li><a href="#booking"><span class="lang-sv">Boka</span><span class="lang-en hidden">Book</span></a></li>
+                <li><a href="#hours"><span class="lang-sv">Öppettider</span><span class="lang-en hidden">Hours</span></a></li>
+            </ul>
+            <button class="language-toggle" id="langToggle">EN</button>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle"><span class="lang-sv">Härligt Kaffe i en Stugigt Miljö</span><span class="lang-en hidden">Lovely Coffee in a Cozy Setting</span></p>
+            <h1 class="hero-title">
+                <span><span class="lang-sv">Hemligt</span><span class="lang-en hidden">Secret</span></span>
+                <span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span>
+            </h1>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
+                <span class="lang-sv">Smak av hederligt kaffe, nybakade bullar & färska kakor i en charmigt atmosfär</span>
+                <span class="lang-en hidden">Taste of honest coffee, freshly baked buns & fresh cookies in a charming atmosphere</span>
+            </p>
+            <a href="#booking" class="btn-primary">
+                <span class="lang-sv">Boka en Plats</span><span class="lang-en hidden">Book a Table</span>
+            </a>
+        </div>
+    </section>
+    
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="lang-sv">Våra Sticky Menyer</span><span class="lang-en hidden">Our Sticky Menu</span></h2>
+                <p class="section-subtitle"><span class="lang-sv">Hennes Cafés Bistros</span><span class="lang-en hidden">Cafe Expert Bistros</span></p>
+            </div>
+            
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400&h=300&fit=crop" alt="Coffee">
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title"><span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span></h3>
+                        <p class="menu-card-desc">
+                            <span class="lang-sv">Espresso, Cappuccino, Latte & mer — filtrerat och kallbryggt med dedikerad kaffeexpertis</span>
+                            <span class="lang-en hidden">Espresso, Cappuccino, Latte & more — filtered and cold-brewed with dedicated coffee expertise</span>
+                        </p>
+                        <p class="menu-card-price">kr 35-55</p>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop" alt="Pastries">
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title"><span class="lang-sv">Bullar</span><span class="lang-en hidden">Buns & Pastries</span></h3>
+                        <p class="menu-card-desc">
+                            <span class="lang-sv">Kanelbullar, Kransbullar, Kardamomspannakor & mer — hemmagjorda i stugigt tradition</span>
+                            <span class="lang-en hidden">Cinnamon buns, Kraut buns, Cardamom pancakes & more — homemade in cottage tradition</span>
+                        </p>
+                        <p class="menu-card-price">kr 45-65</p>
+                    </div>
+                </div>
+                
+                <div class="menu-card">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop" alt="Cakes">
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title"><span class="lang-sv">Kakor & Kakor</span><span class="lang-en hidden">Cakes & Cookies</span></h3>
+                        <p class="menu-card-desc">
+                            <span class="lang-sv">Chokladkaka, Vaniljgouvernement, Banaani & Kanelkakor — tårtor och kakor med stickened aptit</span>
+                            <span class="lang-en hidden">Chocolate cake, Vanilla custard, Banana & Cinnamon cookies — cakes and cookies with值得一提</span>
+                        </p>
+                        <p class="menu-card-price">kr 55-75</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="lang-sv">Vårt Stugiga Bolag</span><span class="lang-en hidden">Our Cozy Business</span></h2>
+                <p class="section-subtitle"><span class="lang-sv">Vårt historia</span><span class="lang-en hidden">Our story</span></p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&h=450&fit=crop" alt="Coast & Coffee">
+                </div>
+                <div class="about-text">
+                    <h2><span class="lang-sv">Hemliga Precisa Former med Stugiga Charm</span><span class="lang-en hidden">Secretly Precise Forms with Cottage Charm</span></h2>
+                    <p>
+                        <span class="lang-sv">Coast & Coffee ligger i hjärtat av stan med fokus på ekologiskt kaffe och hemmagjorda ingredienser. Vi tror på att bra kaffe förtjänar en plats där man får återhämta sig och njuta av livet. Vår melankolikluft och vår utmärkt attityd ger en omedelbar motvind mot stressen.</span>
+                        <span class="lang-en hidden">Located in the heart of the city, we focus on organic coffee and homemade ingredients. We believe good coffee deserves a place to recharge and enjoy life. Our atmosphere and excellent attitude give an immediate counterwind to stress.</span>
+                    </p>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">☕</div>
+                            <div>
+                                <strong><span class="lang-sv">Premium Kaffe</span><span class="lang-en hidden">Premium Coffee</span></strong>
+                                <span style="color: #666; font-size: 0.9rem;"><span class="lang-sv">Ekologiskt från lokala rostare</span><span class="lang-en hidden">Organic from local roasters</span></span>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🏠</div>
+                            <div>
+                                <strong><span class="lang-sv">Home Made</span><span class="lang-en hidden">Bakery Items</span></strong>
+                                <span style="color: #666; font-size: 0.9rem;"><span class="lang-sv">Allt bakat från noll under dagen</span><span class="lang-en hidden">Everything baked from scratch daily</span></span>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✨</div>
+                            <div>
+                                <strong><span class="lang-sv">Cozy Atmosphere</span><span class="lang-en hidden">Atmosphere</span></strong>
+                                <span style="color: #666; font-size: 0.9rem;"><span class="lang-sv">Stugigt med detaljer och affection</span><span class="lang-en hidden">Cottage with details and affection</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="booking" class="booking-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="lang-sv">Boka en Plats</span><span class="lang-en hidden">Book a Table</span></h2>
+                <p class="section-subtitle"><span class="lang-sv">Kom till oss</span><span class="lang-en hidden">Come see us</span></p>
+            </div>
+            
+            <div class="booking-container">
+                <div class="booking-card">
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label class="form-label" for="name"><span class="lang-sv">Namn</span><span class="lang-en hidden">Name</span></label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="date"><span class="lang-sv">Datum</span><span class="lang-en hidden">Date</span></label>
+                                <input type="date" id="date" name="date" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="time"><span class="lang-sv">Tid</span><span class="lang-en hidden">Time</span></label>
+                                <input type="time" id="time" name="time" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="guests"><span class="lang-sv">Antal Gäster</span><span class="lang-en hidden">Number of Guests</span></label>
+                            <input type="number" id="guests" name="guests" class="form-input" min="1" max="10" value="2" required>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span class="lang-sv">Boka Nu</span><span class="lang-en hidden">Book Now</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="hours" class="hours-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="lang-sv">Öppettider</span><span class="lang-en hidden">Opening Hours</span></h2>
+                <p class="section-subtitle"><span class="lang-sv">När vi finns tillgängliga</span><span class="lang-en hidden">When we're available</span></p>
+            </div>
+            
+            <div class="hours-grid">
+                <div class="hours-card">
+                    <h3 class="hours-title"><span class="lang-sv">Måndag - Fredag</span><span class="lang-en hidden">Monday - Friday</span></h3>
+                    <p class="hours-text">08:00 - 18:00</p>
+                </div>
+                <div class="hours-card">
+                    <h3 class="hours-title"><span class="lang-sv">Lördag - Söndag</span><span class="lang-en hidden">Saturday - Sunday</span></h3>
+                    <p class="hours-text">10:00 - 17:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="lang-sv">Vad Våra Gäster Säger</span><span class="lang-en hidden">What Our Guests Say</span></h2>
+                <p class="section-subtitle"><span class="lang-sv">Feedback från cojkaffedrickare</span><span class="lang-en hidden">Feedback from coffee lovers</span></p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Den bästa kaffet i stan! Atmosfären är så cojkafésk att man nästan inte vill lämna."
+                    </p>
+                    <p class="testimonial-author">- Alice Lindberg</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Färska bullar och fantastiska kakor. Världens minsta tomma kaffedrickare."
+                    </p>
+                    <p class="testimonial-author">- Marcus Svensson</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Perfekt stugigt café mitt i stan. Perfekt för att jobba, hälsa på vänner eller bara koppla av."
+                    </p>
+                    <p class="testimonial-author">- Emma Johansson</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h1 class="footer-logo">Coast & Coffee</h1>
+                <div class="social-icons">
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M12 31.5c-8.5 0-15.5-7-15.5-15.5S3.5.5 12 .5s15.5 7 15.5 15.5S20.5 31.5 12 31.5zm0-29C6.2.5 1.5 5.2 1.5 11s4.7 10.5 10.5 10.5 10.5-4.7 10.5-10.5"/>
+                            <path d="M14.5 15c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3zm4 8.6H10.5v-.4c0-1.7 1.8-2.8 4-2.8s4 1.1 4 2.8v.4z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-text">
+                    <span class="lang-sv">© 2025 Coast & Coffee. Alla rättigheter förbehållna.</span>
+                    <span class="lang-en hidden">&copy; 2025 Coast & Coffee. All rights reserved.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Language toggle
+        const toggleBtn = document.getElementById('langToggle');
+        const lang = localStorage.getItem('lang') || 'sv';
+        
+        function setLanguage(l) {
+            document.querySelectorAll('.lang-sv').forEach(el => {
+                el.classList.toggle('hidden', l === 'en');
+            });
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('hidden', l === 'sv');
+            });
+            toggleBtn.textContent = l === 'en' ? 'SV' : 'EN';
+            localStorage.setItem('lang', l);
+        }
+        
+        toggleBtn.addEventListener('click', () => {
+            const currentLang = localStorage.getItem('lang');
+            setLanguage(currentLang === 'en' ? 'sv' : 'en');
+        });
+        
+        // Initialize with correct language
+        if (lang === 'en') {
+            document.querySelectorAll('.lang-sv').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.remove('hidden'));
+        }
+        
+        // Booking form
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Bokning mottagen! Vi återkommer inom 24 timmar.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

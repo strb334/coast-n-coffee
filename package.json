@@ -1,0 +1,15 @@
+
+{
+  "name": "coast-n-coffee",
+  "version": "1.0.0",
+  "description": "Coast & Coffee Café Website",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "start": "vercel start",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
