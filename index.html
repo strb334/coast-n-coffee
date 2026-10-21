@@ -559,7 +559,8 @@
                 <li><a href="#booking"><span class="lang-sv">Boka</span><span class="lang-en hidden">Book</span><span class="lang-de hidden">Buchen</span></a></li>
                 <li><a href="#hours"><span class="lang-sv">Öppettider</span><span class="lang-en hidden">Hours</span><span class="lang-de hidden">Öffnungszeiten</span></a></li>
             </ul>
-            <button class="language-toggle" id="langToggle">EN</button>
+            <button class="lang-btn active" data-lang="sv" title="Swedish">SV</button>
+            <button class="lang-btn" data-lang="en" title="English">EN</button>
             <button class="lang-btn" data-lang="de" title="German">DE</button>
         </div>
     </nav>
@@ -788,29 +789,51 @@
     
     <script>
         // Language toggle
-        const toggleBtn = document.getElementById('langToggle');
+        const langBtns = document.querySelectorAll('.lang-btn');
         const lang = localStorage.getItem('lang') || 'sv';
         
         function setLanguage(l) {
-            document.querySelectorAll('.lang-sv').forEach(el => {
-                el.classList.toggle('hidden', l === 'en');
+            // Update button states
+            langBtns.forEach(btn => {
+                if (btn.dataset.lang === l) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
             });
-            document.querySelectorAll('.lang-en').forEach(el => {
-                el.classList.toggle('hidden', l === 'sv');
+            
+            // Toggle language classes
+            document.querySelectorAll('.lang-sv, .lang-en, .lang-de').forEach(el => {
+                if (el.classList.contains('lang-' + l)) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
             });
-            toggleBtn.textContent = l === 'en' ? 'SV' : 'EN';
+            
+            // Update button text to show active language
+            const activeBtn = document.querySelector('.lang-btn.active');
+            if (activeBtn) {
+                activeBtn.textContent = activeBtn.dataset.lang.toUpperCase();
+            }
+            
             localStorage.setItem('lang', l);
         }
         
-        toggleBtn.addEventListener('click', () => {
-            const currentLang = localStorage.getItem('lang');
-            setLanguage(currentLang === 'en' ? 'sv' : 'en');
+        // Add click event to language buttons
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const newLang = btn.dataset.lang;
+                if (newLang !== lang) {
+                    setLanguage(newLang);
+                }
+            });
         });
         
-        // Initialize with correct language
-        if (lang === 'en') {
+        // Initialize language
+        if (lang === 'en' || lang === 'de') {
+            document.querySelectorAll('.lang-' + lang).forEach(el => el.classList.remove('hidden'));
             document.querySelectorAll('.lang-sv').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.lang-en').forEach(el => el.classList.remove('hidden'));
         }
         
         // Booking form
