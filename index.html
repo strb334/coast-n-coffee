@@ -577,13 +577,13 @@
                 <li><a href="#booking"><span class="lang-sv">Boka</span><span class="lang-en hidden">Book</span><span class="lang-de hidden">Buchen</span></a></li>
                 <li><a href="#hours"><span class="lang-sv">Öppettider</span><span class="lang-en hidden">Hours</span><span class="lang-de hidden">Öffnungszeiten</span></a></li>
             </ul>
-            <div class="language-selector">
-                <button class="lang-btn active" data-lang="sv" title="Swedish">SV</button>
-                <button class="lang-btn" data-lang="en" title="English">EN</button>
-                <button class="lang-btn" data-lang="de" title="German">DE</button>
-            </div>
+            <button class="language-toggle" id="langToggle">EN</button>
         </div>
-    </nav>
+        <div class="language-selector">
+            <button class="lang-btn active" data-lang="sv" title="Swedish">SV</button>
+            <button class="lang-btn" data-lang="en" title="English">EN</button>
+            <button class="lang-btn" data-lang="de" title="German">DE</button>
+        </div>
     
             <p class="hero-subtitle"><span class="lang-sv">MYSIGASTE KAFEET I STAN</span><span class="lang-en hidden">Coziest Café in Town</span><span class="lang-de hidden">Das gemütlichste Café der Stadt</span></p>
             <h1 class="hero-title">
@@ -595,9 +595,15 @@
                 <span class="lang-en hidden">Taste of honest coffee, freshly baked buns & fresh cookies in a charming atmosphere</span>
                 <span class="lang-de hidden">Geschmack von honestem Kaffee, frisch gebackenen Brötchen & frischen Keksen in einer charmanten Atmosphäre</span>
             </p>
-<section id="menu" class="menu-section">
-                <h2 class="section-title"><span class="lang-sv">Våra Sticky Menyer</span><span class="lang-en hidden">Our Sticky Menu</span><span class="lang-de hidden">Unsere Sticky Menüs</span></h2>
-                <p class="section-subtitle"><span class="lang-sv">Hennes Cafés Bistros</span><span class="lang-en hidden">Cafe Expert Bistros</span><span class="lang-de hidden">Hennes Cafés Bistros</span></p>
+            <a href="#booking" class="btn-primary">
+                <span class="lang-sv">Boka en Plats</span><span class="lang-en hidden">Book a Table</span><span class="lang-de hidden">Tisch buchen</span>
+            </a>
+    
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="lang-sv">Våra Sticky Menyer</span><span class="lang-en hidden">Our Sticky Menu</span></h2>
+                <p class="section-subtitle"><span class="lang-sv">Hennes Cafés Bistros</span><span class="lang-en hidden">Cafe Expert Bistros</span></p>
             </div>
             
             <div class="menu-grid">
@@ -606,11 +612,10 @@
                         <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400&h=300&fit=crop" alt="Coffee">
                     </div>
                     <div class="menu-card-content">
-                        <h3 class="menu-card-title"><span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span><span class="lang-de hidden">Kaffee</span></h3>
+                        <h3 class="menu-card-title"><span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span></h3>
                         <p class="menu-card-desc">
                             <span class="lang-sv">Espresso, Cappuccino, Latte & mer — filtrerat och kallbryggt med dedikerad kaffeexpertis</span>
                             <span class="lang-en hidden">Espresso, Cappuccino, Latte & more — filtered and cold-brewed with dedicated coffee expertise</span>
-                            <span class="lang-de hidden">Espresso, Cappuccino, Latte & mehr — gefiltert und cold-brewed mit dedizierter Kaffeexpertise</span>
                         </p>
                         <p class="menu-card-price">kr 35-55</p>
                     </div>
@@ -621,11 +626,10 @@
                         <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop" alt="Pastries">
                     </div>
                     <div class="menu-card-content">
-                        <h3 class="menu-card-title"><span class="lang-sv">Bullar</span><span class="lang-en hidden">Buns & Pastries</span><span class="lang-de hidden">Brötchen & Pasteten</span></h3>
+                        <h3 class="menu-card-title"><span class="lang-sv">Bullar</span><span class="lang-en hidden">Buns & Pastries</span></h3>
                         <p class="menu-card-desc">
                             <span class="lang-sv">Kanelbullar, Kransbullar, Kardamomspannakor & mer — hemmagjorda i stugigt tradition</span>
                             <span class="lang-en hidden">Cinnamon buns, Kraut buns, Cardamom pancakes & more — homemade in cottage tradition</span>
-                            <span class="lang-de hidden">Cinnamon buns, Kraut buns, Kardamomspannakor & mehr — homemade in cottage tradition</span>
                         </p>
                         <p class="menu-card-price">kr 45-65</p>
                     </div>
@@ -636,11 +640,10 @@
                         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop" alt="Cakes">
                     </div>
                     <div class="menu-card-content">
-                        <h3 class="menu-card-title"><span class="lang-sv">Kakor & Kakor</span><span class="lang-en hidden">Cakes & Cookies</span><span class="lang-de hidden">Kuchen & Kekse</span></h3>
+                        <h3 class="menu-card-title"><span class="lang-sv">Kakor & Kakor</span><span class="lang-en hidden">Cakes & Cookies</span></h3>
                         <p class="menu-card-desc">
                             <span class="lang-sv">Chokladkaka, Vaniljgouvernement, Banaani & Kanelkakor — tårtor och kakor med stickened aptit</span>
-                            <span class="lang-en hidden">Chocolate cake, Vanilla custard, Banana & Cinnamon cookies — cakes and cookies with worth mentioning</span>
-                            <span class="lang-de hidden">Chocolate cake, Vanilla custard, Banana & Cinnamon cookies — cakes and cookies with worth mentioning</span>
+                            <span class="lang-en hidden">Chocolate cake, Vanilla custard, Banana & Cinnamon cookies — cakes and cookies with值得一提</span>
                         </p>
                         <p class="menu-card-price">kr 55-75</p>
                     </div>
@@ -802,7 +805,8 @@
         </div>
     </footer>
     
-// Language toggle
+    <script>
+        // Language toggle
         const langBtns = document.querySelectorAll('.lang-btn');
         const lang = localStorage.getItem('lang') || 'sv';
         
