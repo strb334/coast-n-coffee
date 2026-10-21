@@ -9,41 +9,41 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build project
-      run: |
-        # Netlify doesn't require building for static sites
-        echo "Static site deployment"
-
-    - name: Deploy to Netlify
-      uses: netlify/actions@v1
-      with:
-        netlify-token: ${{ secrets.NETLIFY_TOKEN }}
-        netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-    - name: Notify deployment success
-      if: success()
-      run: |
-        echo "🚀 Website deployed successfully to Netlify!"
-        echo "🌐 Your site is live at: https://${{ secrets.NETLIFY_SITE_ID }}.netlify.app"
-
-    - name: Notify deployment failure
-      if: failure()
-      run: |
-        echo "❌ Deployment failed!"
-        echo "Please check the workflow logs for details."
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build project
+        run: |
+          echo "Building for Netlify deployment..."
+          npm run build
+          
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@v1
+        with:
+          netlify-token: ${{ secrets.NETLIFY_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Notify deployment success
+        if: success()
+        run: |
+          echo "🚀 Website deployed successfully to Netlify!"
+          echo "🌐 Your site is live at: https://${{ secrets.NETLIFY_SITE_ID }}.netlify.app"
+          
+      - name: Notify deployment failure
+        if: failure()
+        run: |
+          echo "❌ Deployment failed!"
+          echo "Please check the workflow logs for details."
