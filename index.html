@@ -85,19 +85,37 @@
         .nav-links a:hover { color: var(--secondary); }
         .nav-links a:hover::after { width: 100%; }
 
-        .language-toggle {
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+        
+        .lang-btn {
             background: white;
             border: 1px solid var(--secondary);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.85rem;
+            font-weight: 500;
             transition: all 0.3s;
+            min-width: 45px;
+            text-align: center;
         }
-
-        .language-toggle:hover {
+        
+        .lang-btn:hover {
             background: var(--secondary);
             color: white;
+            transform: translateY(-2px);
+        }
+        
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(93, 64, 55, 0.3);
         }
 
         /* Hero Section */
@@ -554,37 +572,32 @@
         <div class="nav-content">
             <a href="#" class="logo">Coast & Coffee</a>
             <ul class="nav-links">
-                <li><a href="#menu"><span class="lang-sv">Menyer</span><span class="lang-en hidden">Menu</span></a></li>
-                <li><a href="#about"><span class="lang-sv">Om Oss</span><span class="lang-en hidden">About</span></a></li>
-                <li><a href="#booking"><span class="lang-sv">Boka</span><span class="lang-en hidden">Book</span></a></li>
-                <li><a href="#hours"><span class="lang-sv">Öppettider</span><span class="lang-en hidden">Hours</span></a></li>
+                <li><a href="#menu"><span class="lang-sv">Menyer</span><span class="lang-en hidden">Menu</span><span class="lang-de hidden">Menü</span></a></li>
+                <li><a href="#about"><span class="lang-sv">Om Oss</span><span class="lang-en hidden">About</span><span class="lang-de hidden">Über uns</span></a></li>
+                <li><a href="#booking"><span class="lang-sv">Boka</span><span class="lang-en hidden">Book</span><span class="lang-de hidden">Buchen</span></a></li>
+                <li><a href="#hours"><span class="lang-sv">Öppettider</span><span class="lang-en hidden">Hours</span><span class="lang-de hidden">Öffnungszeiten</span></a></li>
             </ul>
-            <button class="language-toggle" id="langToggle">EN</button>
+            <div class="language-selector">
+                <button class="lang-btn active" data-lang="sv" title="Swedish">SV</button>
+                <button class="lang-btn" data-lang="en" title="English">EN</button>
+                <button class="lang-btn" data-lang="de" title="German">DE</button>
+            </div>
         </div>
     </nav>
     
-    <section class="hero">
-        <div class="hero-content">
-            <p class="hero-subtitle"><span class="lang-sv">MYSIGASTE KAFEET I STAN</span><span class="lang-en hidden">Coziest Café in Town</span></p>
+            <p class="hero-subtitle"><span class="lang-sv">MYSIGASTE KAFEET I STAN</span><span class="lang-en hidden">Coziest Café in Town</span><span class="lang-de hidden">Das gemütlichste Café der Stadt</span></p>
             <h1 class="hero-title">
-                <span><span class="lang-sv">Hemligt</span><span class="lang-en hidden">Secret</span></span>
-                <span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span>
+                <span><span class="lang-sv">Hemligt</span><span class="lang-en hidden">Secret</span><span class="lang-de hidden">Geheim</span></span>
+                <span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span><span class="lang-de hidden">Kaffee</span>
             </h1>
             <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
                 <span class="lang-sv">Smak av hederligt kaffe, nybakade bullar & färska kakor i en charmigt atmosfär</span>
                 <span class="lang-en hidden">Taste of honest coffee, freshly baked buns & fresh cookies in a charming atmosphere</span>
+                <span class="lang-de hidden">Geschmack von honestem Kaffee, frisch gebackenen Brötchen & frischen Keksen in einer charmanten Atmosphäre</span>
             </p>
-            <a href="#booking" class="btn-primary">
-                <span class="lang-sv">Boka en Plats</span><span class="lang-en hidden">Book a Table</span>
-            </a>
-        </div>
-    </section>
-    
-    <section id="menu" class="menu-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title"><span class="lang-sv">Våra Sticky Menyer</span><span class="lang-en hidden">Our Sticky Menu</span></h2>
-                <p class="section-subtitle"><span class="lang-sv">Hennes Cafés Bistros</span><span class="lang-en hidden">Cafe Expert Bistros</span></p>
+<section id="menu" class="menu-section">
+                <h2 class="section-title"><span class="lang-sv">Våra Sticky Menyer</span><span class="lang-en hidden">Our Sticky Menu</span><span class="lang-de hidden">Unsere Sticky Menüs</span></h2>
+                <p class="section-subtitle"><span class="lang-sv">Hennes Cafés Bistros</span><span class="lang-en hidden">Cafe Expert Bistros</span><span class="lang-de hidden">Hennes Cafés Bistros</span></p>
             </div>
             
             <div class="menu-grid">
@@ -593,10 +606,11 @@
                         <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400&h=300&fit=crop" alt="Coffee">
                     </div>
                     <div class="menu-card-content">
-                        <h3 class="menu-card-title"><span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span></h3>
+                        <h3 class="menu-card-title"><span class="lang-sv">Kaffe</span><span class="lang-en hidden">Coffee</span><span class="lang-de hidden">Kaffee</span></h3>
                         <p class="menu-card-desc">
                             <span class="lang-sv">Espresso, Cappuccino, Latte & mer — filtrerat och kallbryggt med dedikerad kaffeexpertis</span>
                             <span class="lang-en hidden">Espresso, Cappuccino, Latte & more — filtered and cold-brewed with dedicated coffee expertise</span>
+                            <span class="lang-de hidden">Espresso, Cappuccino, Latte & mehr — gefiltert und cold-brewed mit dedizierter Kaffeexpertise</span>
                         </p>
                         <p class="menu-card-price">kr 35-55</p>
                     </div>
@@ -607,10 +621,11 @@
                         <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop" alt="Pastries">
                     </div>
                     <div class="menu-card-content">
-                        <h3 class="menu-card-title"><span class="lang-sv">Bullar</span><span class="lang-en hidden">Buns & Pastries</span></h3>
+                        <h3 class="menu-card-title"><span class="lang-sv">Bullar</span><span class="lang-en hidden">Buns & Pastries</span><span class="lang-de hidden">Brötchen & Pasteten</span></h3>
                         <p class="menu-card-desc">
                             <span class="lang-sv">Kanelbullar, Kransbullar, Kardamomspannakor & mer — hemmagjorda i stugigt tradition</span>
                             <span class="lang-en hidden">Cinnamon buns, Kraut buns, Cardamom pancakes & more — homemade in cottage tradition</span>
+                            <span class="lang-de hidden">Cinnamon buns, Kraut buns, Kardamomspannakor & mehr — homemade in cottage tradition</span>
                         </p>
                         <p class="menu-card-price">kr 45-65</p>
                     </div>
@@ -621,10 +636,11 @@
                         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop" alt="Cakes">
                     </div>
                     <div class="menu-card-content">
-                        <h3 class="menu-card-title"><span class="lang-sv">Kakor & Kakor</span><span class="lang-en hidden">Cakes & Cookies</span></h3>
+                        <h3 class="menu-card-title"><span class="lang-sv">Kakor & Kakor</span><span class="lang-en hidden">Cakes & Cookies</span><span class="lang-de hidden">Kuchen & Kekse</span></h3>
                         <p class="menu-card-desc">
                             <span class="lang-sv">Chokladkaka, Vaniljgouvernement, Banaani & Kanelkakor — tårtor och kakor med stickened aptit</span>
-                            <span class="lang-en hidden">Chocolate cake, Vanilla custard, Banana & Cinnamon cookies — cakes and cookies with值得一提</span>
+                            <span class="lang-en hidden">Chocolate cake, Vanilla custard, Banana & Cinnamon cookies — cakes and cookies with worth mentioning</span>
+                            <span class="lang-de hidden">Chocolate cake, Vanilla custard, Banana & Cinnamon cookies — cakes and cookies with worth mentioning</span>
                         </p>
                         <p class="menu-card-price">kr 55-75</p>
                     </div>
@@ -786,31 +802,52 @@
         </div>
     </footer>
     
-    <script>
-        // Language toggle
-        const toggleBtn = document.getElementById('langToggle');
+// Language toggle
+        const langBtns = document.querySelectorAll('.lang-btn');
         const lang = localStorage.getItem('lang') || 'sv';
         
         function setLanguage(l) {
-            document.querySelectorAll('.lang-sv').forEach(el => {
-                el.classList.toggle('hidden', l === 'en');
+            // Update button states
+            langBtns.forEach(btn => {
+                if (btn.dataset.lang === l) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
             });
-            document.querySelectorAll('.lang-en').forEach(el => {
-                el.classList.toggle('hidden', l === 'sv');
+            
+            // Toggle language classes
+            document.querySelectorAll('.lang-sv, .lang-en, .lang-de').forEach(el => {
+                if (el.classList.contains('lang-' + l)) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
             });
-            toggleBtn.textContent = l === 'en' ? 'SV' : 'EN';
+            
+            // Update button text to show active language
+            const activeBtn = document.querySelector('.lang-btn.active');
+            if (activeBtn) {
+                activeBtn.textContent = activeBtn.dataset.lang.toUpperCase();
+            }
+            
             localStorage.setItem('lang', l);
         }
         
-        toggleBtn.addEventListener('click', () => {
-            const currentLang = localStorage.getItem('lang');
-            setLanguage(currentLang === 'en' ? 'sv' : 'en');
+        // Add click event to language buttons
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const newLang = btn.dataset.lang;
+                if (newLang !== lang) {
+                    setLanguage(newLang);
+                }
+            });
         });
         
-        // Initialize with correct language
-        if (lang === 'en') {
+        // Initialize language
+        if (lang === 'en' || lang === 'de') {
+            document.querySelectorAll('.lang-' + lang).forEach(el => el.classList.remove('hidden'));
             document.querySelectorAll('.lang-sv').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.lang-en').forEach(el => el.classList.remove('hidden'));
         }
         
         // Booking form
